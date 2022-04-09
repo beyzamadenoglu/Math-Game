@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Roboto:wght@100;400&display=swap');
+body {
+  margin: 0;
+  font-family: 'Handlee', cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #2D2D2D;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
