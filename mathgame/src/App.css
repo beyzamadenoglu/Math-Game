@@ -60,19 +60,30 @@ div h2 {
   margin-bottom: -99px;
   position: relative;
 }
-.board-container {
-  margin-right: 69%;
-  padding: 4%;
-}
-.answers-container {
-  margin-left: 20%;
-  margin-top: -40%;
-}
 
 .answer {
   border: 5px solid red;
 }
 
+.board-container {
+  width: 40%;
+  border: 5px solid black;
+}
+
+.board-container svg {
+  width: 100%;
+}
+
+.answers-container {
+  width: 60%;
+}
+
+
+.answer * {
+  width: 75px;
+  height: 75px;
+  position: ab;
+}
 
 .answer svg {
   cursor: pointer;

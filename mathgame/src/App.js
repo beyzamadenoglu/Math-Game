@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
-import Game from './pages/Game';
+import { TourProvider } from './contexts/tour';
+import Router from './rooter/rooter';
+
 
 function App() {
     return (
-        <div className='App'>   
-            <Game />
-        </div>
+        <TourProvider>
+            <Router />
+        </TourProvider>
     );
 }
 
