@@ -24,7 +24,7 @@ function Welcome() {
                 <h2>Correct Answers: {correctAnswers} </h2>
             </div>
             <h2 onClick={() => navigate('/game')} className="start pointer">
-                            Start
+                Start
             </h2>
             <StartCircle />
             <div>

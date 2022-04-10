@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-
 const GameLine = (props) => {
     return(
         <svg width={props?.width || '640'} height={props.height ||'10'} viewBox="0 0 640 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,6 +8,5 @@ const GameLine = (props) => {
         </svg>  
     );
 };
-
 
 export default GameLine;

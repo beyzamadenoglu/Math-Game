@@ -12,16 +12,10 @@ function Game() {
     const navigate = useNavigate();
 
     const [correctAnswer, setCorrectAnswer] = useState(0);
-    const [firstWrongAnswer, setFirstWrongAnswer] = useState(0);
-    const [secondWrongAnswer, setSecondWrongAnswer] = useState(0);
     const [questionString, setQuestionString] = useState();
     const [answerReport, setAnswerReport] = useState('');
     const [questionCounter, setQuestionCounter] = useState(0);
-
-
     const [answers, setAnswers] = useState([]);
-
-
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
     const [totalQuestions, setTotalQuestions] = useState(0);
@@ -94,10 +88,6 @@ function Game() {
         document.querySelector('body').style = 'background-color:green';
 
         let score = Math.ceil(Math.sqrt(answer));
-        /*console.log('answer;', answer);
-        console.log('score;', score);
-        console.log('--------------------------------------------------------');*/
-
 
         setTotalScore(totalScore + score);
         setCorrectAnswers(correctAnswers + 1);
@@ -135,9 +125,7 @@ function Game() {
         document.querySelector('body').style = 'background: #2D2D2D;';
 
         if (questionCounter != 0 && (questionCounter % 10) == 0) {
-            // setToLocalStorage();
             increaseTour(questionCounter);
-            // navigate('/result');
         } else {
             setQuestionCounter(questionCounter + 1);
         }

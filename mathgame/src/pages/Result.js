@@ -22,7 +22,6 @@ function Result() {
         console.log(tourNumber);
     }, [tourNumber]);
 
-
     return (
         <>
             <div className='container'>
@@ -46,9 +45,7 @@ function Result() {
                             return <li key={index} className='report-li'>{name}</li>;
                         })}
                     </ul>
-
                 </div>
-
             </div>
         </>
     );
