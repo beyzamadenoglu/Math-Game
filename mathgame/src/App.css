@@ -37,6 +37,10 @@
   }
 }
 
+.welcome {
+  text-align: center;
+}
+
 div h1 {
   color: #FF0000;
   font-size: 82px;
@@ -61,41 +65,89 @@ div h2 {
   position: relative;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.info {
+  width: 100%;
+  text-align: right;
+  margin: 10px 0px;
+}
+
+.info * {
+  font-size: 20px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .answer {
-  border: 5px solid red;
+  cursor: pointer;
+  margin-left: 25%;
+  display: grid;
+  text-align: center;
+}
+
+.answer * {
+  width: 110px;
+  grid-column-start: 1;
+  grid-row-start: 1;
 }
 
 .board-container {
-  width: 40%;
-  border: 5px solid black;
+  width: 45%;
+  display: grid;
+}
+
+.board-container * {
+  grid-column-start: 1;
+  grid-row-start: 1;
 }
 
 .board-container svg {
   width: 100%;
 }
 
+.board-container h2 {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  font-size: 30px;
+}
+
 .answers-container {
-  width: 60%;
+  width: 55%;
 }
 
-
-.answer * {
-  width: 75px;
-  height: 75px;
-  position: ab;
+.answer-one {
+  margin-bottom: -30px;
+}
+.answer-three {
+  margin-top: -30px;
 }
 
-.answer svg {
-  cursor: pointer;
+.answer-two {
+  margin-left: 35%;
 }
 
 .container {
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: top;
 }
 .final-page {
   font-size: 60px;
   
 }
 
+.report-li {
+  list-style-type: none;
+  font-size: 35px;
+  color: #FFFFFF;
+}
+
+.restart {
+  margin-top: -25%;
+  text-align: center;
+  width: 350px;
+}

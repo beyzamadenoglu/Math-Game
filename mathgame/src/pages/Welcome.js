@@ -1,9 +1,16 @@
 import React from 'react';
 import { GameLine, StartCircle } from '../constants/images';
-function Welcome() {
+import { useNavigate } from 'react-router-dom';
 
+
+function Welcome() {
+    const totalScore = localStorage.getItem('totalScore');
+    const totalQuestions = localStorage.getItem('totalQuestions');
+    const correctAnswers = localStorage.getItem('correctAnswers');
+
+    const navigate = useNavigate();
     return (
-        <>
+        <>  <div className ="welcome">
             <div className="gametext">
                 <h1>Mathematics Game</h1>
             </div>
@@ -11,16 +18,19 @@ function Welcome() {
                 <GameLine />
             </div>
 
-            <div className ='info'>
-                <h2>Total Point: </h2>
-                <h2>Total Question: </h2>
-                <h2>Correct Answers: </h2>
+            <div className='info'>
+                <h2>Total Point: {totalScore} </h2>
+                <h2>Total Question: {totalQuestions} </h2>
+                <h2>Correct Answers: {correctAnswers} </h2>
             </div>
-            <h2 className='start'>Start</h2>
+            <h2 onClick={() => navigate('/game')} className="start pointer">
+                            Start
+            </h2>
             <StartCircle />
             <div>
-                
+
             </div>
+        </div>
         </>
     );
 }

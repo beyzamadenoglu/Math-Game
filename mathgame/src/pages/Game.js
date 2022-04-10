@@ -2,8 +2,7 @@
 /* eslint-disable semi */
 import React, { useState, useEffect } from 'react';
 import { Person, AnswerCircle } from '../constants/images';
-import Result from '../pages/Result';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import '../App.css'
 import { useTour } from '../contexts/tour';
@@ -16,27 +15,36 @@ function Game() {
     const [firstWrongAnswer, setFirstWrongAnswer] = useState(0);
     const [secondWrongAnswer, setSecondWrongAnswer] = useState(0);
     const [questionString, setQuestionString] = useState();
-    const [answerReport, setAnswerReport] = useState([]);
-    const [questionCounter, setQuestionCounter] = useState(1);
+    const [answerReport, setAnswerReport] = useState('');
+    const [questionCounter, setQuestionCounter] = useState(0);
+
+
+    const [answers, setAnswers] = useState([]);
+
 
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
     const [totalQuestions, setTotalQuestions] = useState(0);
 
-
-    const { increaseTour, tourNumber, setTourNumber } = useTour();
+    const { increaseTour, tourNumber } = useTour();
 
 
     useEffect(() => {
-        let question = getMultipliedNumber();
+        if (questionCounter == 10) {
+            setToLocalStorage();
+            navigate('/result');
+        } else {
+            let question = getMultipliedNumber();
 
-        setCorrectAnswer(question.array[0]);
+            setCorrectAnswer(question.array[0]);
 
-        question.array = question.array.sort((_a, _b) => 0.5 - Math.random());
+            setAnswers(question.array.sort((_a, _b) => 0.5 - Math.random()));
 
-        setQuestionString(question.questionString);
-        setFirstWrongAnswer(question.array[1]);
-        setSecondWrongAnswer(question.array[2]);
+            setQuestionString(question.questionString);
+
+            //setFirstWrongAnswer(question.array[1]);
+            //setSecondWrongAnswer(question.array[2]);
+        }
 
 
     }, [questionCounter])
@@ -77,22 +85,23 @@ function Game() {
 
         isCorrect ? handleCorrectAnswer(answer) : handleWrongAnswer();
 
-        await delay(150);
+        await delay(120);
 
         handleNext(questionString, answer, isCorrect);
-
     };
 
-    function handleCorrectAnswer(answer) {
+    const handleCorrectAnswer = async (answer) => {
         document.querySelector('body').style = 'background-color:green';
 
         let score = Math.ceil(Math.sqrt(answer));
-        console.log('answer;', answer);
+        /*console.log('answer;', answer);
         console.log('score;', score);
-        console.log('--------------------------------------------------------');
+        console.log('--------------------------------------------------------');*/
+
 
         setTotalScore(totalScore + score);
         setCorrectAnswers(correctAnswers + 1);
+
     }
 
     function handleWrongAnswer() {
@@ -101,44 +110,49 @@ function Game() {
 
 
     function setToLocalStorage() {
-        console.log('setToLocalStorage');
-
-        //bu şekilde mi localstoragea eklicez ?
-        let _correctAnswer = localStorage.getItem('correctAnswers') ? (localStorage.getItem(Number('correctAnswers'))) : [];
+        let _correctAnswer = localStorage.getItem('correctAnswers') ? (Number(localStorage.getItem('correctAnswers'))) : [];
         _correctAnswer += correctAnswers;
         localStorage.setItem('correctAnswers', _correctAnswer);
 
+        localStorage.setItem('Score', totalScore);
 
-        let _totalQuestion = localStorage.getItem('totalQuestions') ? (localStorage.getItem(Number('totalQuestions'))) : [];
+       
+        localStorage.setItem('Correct', correctAnswers);
+
+        let _totalQuestion = localStorage.getItem('totalQuestions') ? (Number(localStorage.getItem('totalQuestions'))) : [];
         _totalQuestion += totalQuestions;
         localStorage.setItem('totalQuestions', _totalQuestion);
 
-
-        let _totalScores = localStorage.getItem('totalScore') ? (localStorage.getItem(Number('totalScore'))) : [];
+        let _totalScores = localStorage.getItem('totalScore') ? (Number(localStorage.getItem('totalScore'))) : [];
         _totalScores += totalScore;
         localStorage.setItem('totalScore', _totalScores);
+
+        localStorage.setItem('answerReport', answerReport.slice(0, -1));
     }
 
     function handleNext(questionString, answer, isCorrect) {
-        setAnswerReport([...answerReport, `${questionString.slice(0, -2)} ${answer} ${isCorrect ? '✓' : '☓'}`]);
+        setAnswerReport(`${answerReport} ${questionString.slice(0, -2)} ${answer} ${isCorrect ? '✓' : '☓'}@`);
         document.querySelector('body').style = 'background: #2D2D2D;';
 
-        if ((questionCounter % 10) == 0) {
-            setToLocalStorage();
+        if (questionCounter != 0 && (questionCounter % 10) == 0) {
+            // setToLocalStorage();
             increaseTour(questionCounter);
-            navigate('/result');
+            // navigate('/result');
         } else {
             setQuestionCounter(questionCounter + 1);
         }
     }
 
-    //  console.log(correctAnswer, wrongAnswerSmall, wrongAnswerBig);
-
     return (
         <>
+            <div className='info'>
+                <h2>Score: {totalScore}</h2>
+                <h2>Tour: {tourNumber}</h2>
+                <h2>Questions:{questionCounter}/10</h2>
+            </div>
+
             <div className='container'>
                 <div className='board-container'>
-                    <Link to='/result'>asdfadfaf</Link>
                     <Person width='600' height='550' />
                     <h2>
                         {questionString}
@@ -147,19 +161,19 @@ function Game() {
                 <div className='answers-container'>
                     <div className='answer answer-one' onClick={() => handleAnswerCircleClick(document.getElementById('q1'))}>
                         <h2 id="q1">
-                            {correctAnswer}
+                            {answers[0]}
                         </h2>
                         <AnswerCircle />
                     </div>
                     <div className='answer answer-two' onClick={() => handleAnswerCircleClick(document.getElementById('q2'))}>
                         <h2 id="q2">
-                            {firstWrongAnswer}
+                            {answers[1]}
                         </h2>
                         <AnswerCircle />
                     </div>
                     <div className='answer answer-three' onClick={() => handleAnswerCircleClick(document.getElementById('q3'))}>
                         <h2 id="q3">
-                            {secondWrongAnswer}
+                            {answers[2]}
                         </h2>
                         <AnswerCircle />
                     </div>
@@ -168,5 +182,6 @@ function Game() {
         </>
     );
 }
+
 
 export default Game;
