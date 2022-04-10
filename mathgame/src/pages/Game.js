@@ -85,7 +85,7 @@ function Game() {
 
         isCorrect ? handleCorrectAnswer(answer) : handleWrongAnswer();
 
-        await delay(120);
+        await delay(3000);
 
         handleNext(questionString, answer, isCorrect);
     };

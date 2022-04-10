@@ -18,7 +18,7 @@ function Welcome() {
                 <GameLine />
             </div>
 
-            <div className='info'>
+            <div className='info-welcome'>
                 <h2>Total Point: {totalScore} </h2>
                 <h2>Total Question: {totalQuestions} </h2>
                 <h2>Correct Answers: {correctAnswers} </h2>
